@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKey", "LoyalKey\LoyalKey.csproj", "{D34EF7A3-3011-438F-ABB4-134CF47D02CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKey.Tests", "LoyalKey.Tests\LoyalKey.Tests.csproj", "{1EC398BF-647E-44DD-928B-88CACC099739}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKeyWCF", "LoyalKeyWCF\LoyalKeyWCF.csproj", "{27C2329A-D437-45A2-934D-140420CBC324}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKeySystem", "LoyalKeySystem\LoyalKeySystem.csproj", "{B84FDD3A-09C2-44D1-8D50-1A20B773125A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D34EF7A3-3011-438F-ABB4-134CF47D02CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D34EF7A3-3011-438F-ABB4-134CF47D02CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D34EF7A3-3011-438F-ABB4-134CF47D02CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D34EF7A3-3011-438F-ABB4-134CF47D02CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EC398BF-647E-44DD-928B-88CACC099739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EC398BF-647E-44DD-928B-88CACC099739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EC398BF-647E-44DD-928B-88CACC099739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EC398BF-647E-44DD-928B-88CACC099739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C2329A-D437-45A2-934D-140420CBC324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C2329A-D437-45A2-934D-140420CBC324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C2329A-D437-45A2-934D-140420CBC324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C2329A-D437-45A2-934D-140420CBC324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B84FDD3A-09C2-44D1-8D50-1A20B773125A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B84FDD3A-09C2-44D1-8D50-1A20B773125A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B84FDD3A-09C2-44D1-8D50-1A20B773125A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B84FDD3A-09C2-44D1-8D50-1A20B773125A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8FD28ECE-462B-40F2-B141-8A3493261425}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LoyalKeyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PostCode" Type="nvarchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="Reward">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RewardDetailID" Type="int" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RewardDetail">
+          <Key>
+            <PropertyRef Name="RewardDetailID" />
+          </Key>
+          <Property Name="RewardDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RewardTypeID" Type="int" Nullable="false" />
+          <Property Name="Max" Type="money" />
+        </EntityType>
+        <EntityType Name="RewardType">
+          <Key>
+            <PropertyRef Name="RewardTypeID" />
+          </Key>
+          <Property Name="RewardTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Reward_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Reward">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reward_RewardDetail">
+          <End Role="RewardDetail" Type="Self.RewardDetail" Multiplicity="1" />
+          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RewardDetail">
+              <PropertyRef Name="RewardDetailID" />
+            </Principal>
+            <Dependent Role="Reward">
+              <PropertyRef Name="RewardDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RewardDetail_RewardType">
+          <End Role="RewardType" Type="Self.RewardType" Multiplicity="1" />
+          <End Role="RewardDetail" Type="Self.RewardDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RewardType">
+              <PropertyRef Name="RewardTypeID" />
+            </Principal>
+            <Dependent Role="RewardDetail">
+              <PropertyRef Name="RewardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LoyalKeyDBModelStoreContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="Baulder" store:Type="Tables" />
+          <EntitySet Name="Reward" EntityType="Self.Reward" Schema="Baulder" store:Type="Tables" />
+          <EntitySet Name="RewardDetail" EntityType="Self.RewardDetail" Schema="Baulder" store:Type="Tables" />
+          <EntitySet Name="RewardType" EntityType="Self.RewardType" Schema="Baulder" store:Type="Tables" />
+          <AssociationSet Name="FK_Reward_Company" Association="Self.FK_Reward_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Reward" EntitySet="Reward" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reward_RewardDetail" Association="Self.FK_Reward_RewardDetail">
+            <End Role="RewardDetail" EntitySet="RewardDetail" />
+            <End Role="Reward" EntitySet="Reward" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RewardDetail_RewardType" Association="Self.FK_RewardDetail_RewardType">
+            <End Role="RewardType" EntitySet="RewardType" />
+            <End Role="RewardDetail" EntitySet="RewardDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LoyalKeyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PostCode" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rewards" Relationship="Self.FK_Reward_Company" FromRole="Company" ToRole="Reward" />
+        </EntityType>
+        <EntityType Name="Reward">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RewardDetailID" Type="Int32" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Reward_Company" FromRole="Reward" ToRole="Company" />
+          <NavigationProperty Name="RewardDetail" Relationship="Self.FK_Reward_RewardDetail" FromRole="Reward" ToRole="RewardDetail" />
+        </EntityType>
+        <EntityType Name="RewardDetail">
+          <Key>
+            <PropertyRef Name="RewardDetailID" />
+          </Key>
+          <Property Name="RewardDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RewardTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Max" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Rewards" Relationship="Self.FK_Reward_RewardDetail" FromRole="RewardDetail" ToRole="Reward" />
+          <NavigationProperty Name="RewardType" Relationship="Self.FK_RewardDetail_RewardType" FromRole="RewardDetail" ToRole="RewardType" />
+        </EntityType>
+        <EntityType Name="RewardType">
+          <Key>
+            <PropertyRef Name="RewardTypeID" />
+          </Key>
+          <Property Name="RewardTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RewardDetails" Relationship="Self.FK_RewardDetail_RewardType" FromRole="RewardType" ToRole="RewardDetail" />
+        </EntityType>
+        <Association Name="FK_Reward_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Reward">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reward_RewardDetail">
+          <End Role="RewardDetail" Type="Self.RewardDetail" Multiplicity="1" />
+          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RewardDetail">
+              <PropertyRef Name="RewardDetailID" />
+            </Principal>
+            <Dependent Role="Reward">
+              <PropertyRef Name="RewardDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RewardDetail_RewardType">
+          <End Role="RewardType" Type="Self.RewardType" Multiplicity="1" />
+          <End Role="RewardDetail" Type="Self.RewardDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RewardType">
+              <PropertyRef Name="RewardTypeID" />
+            </Principal>
+            <Dependent Role="RewardDetail">
+              <PropertyRef Name="RewardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LoyalKeyDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Rewards" EntityType="Self.Reward" />
+          <EntitySet Name="RewardDetails" EntityType="Self.RewardDetail" />
+          <EntitySet Name="RewardTypes" EntityType="Self.RewardType" />
+          <AssociationSet Name="FK_Reward_Company" Association="Self.FK_Reward_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Reward" EntitySet="Rewards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reward_RewardDetail" Association="Self.FK_Reward_RewardDetail">
+            <End Role="RewardDetail" EntitySet="RewardDetails" />
+            <End Role="Reward" EntitySet="Rewards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RewardDetail_RewardType" Association="Self.FK_RewardDetail_RewardType">
+            <End Role="RewardType" EntitySet="RewardTypes" />
+            <End Role="RewardDetail" EntitySet="RewardDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LoyalKeyDBModelStoreContainer" CdmEntityContainer="LoyalKeyDBEntities">
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="LoyalKeyDBModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rewards">
+            <EntityTypeMapping TypeName="LoyalKeyDBModel.Reward">
+              <MappingFragment StoreEntitySet="Reward">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RewardDetailID" ColumnName="RewardDetailID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RewardDetails">
+            <EntityTypeMapping TypeName="LoyalKeyDBModel.RewardDetail">
+              <MappingFragment StoreEntitySet="RewardDetail">
+                <ScalarProperty Name="RewardDetailID" ColumnName="RewardDetailID" />
+                <ScalarProperty Name="RewardTypeID" ColumnName="RewardTypeID" />
+                <ScalarProperty Name="Max" ColumnName="Max" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RewardTypes">
+            <EntityTypeMapping TypeName="LoyalKeyDBModel.RewardType">
+              <MappingFragment StoreEntitySet="RewardType">
+                <ScalarProperty Name="RewardTypeID" ColumnName="RewardTypeID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

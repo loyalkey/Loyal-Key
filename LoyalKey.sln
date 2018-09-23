@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKey", "LoyalKey\LoyalKey.csproj", "{D34EF7A3-3011-438F-ABB4-134CF47D02CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{27C2329A-D437-45A2-934D-140420CBC324} = {27C2329A-D437-45A2-934D-140420CBC324}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKey.Tests", "LoyalKey.Tests\LoyalKey.Tests.csproj", "{1EC398BF-647E-44DD-928B-88CACC099739}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKeyWCF", "LoyalKeyWCF\LoyalKeyWCF.csproj", "{27C2329A-D437-45A2-934D-140420CBC324}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DA025924-D470-42B7-BD54-3606F6455998} = {DA025924-D470-42B7-BD54-3606F6455998}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKeySystem", "LoyalKeySystem\LoyalKeySystem.csproj", "{B84FDD3A-09C2-44D1-8D50-1A20B773125A}"
 	ProjectSection(ProjectDependencies) = postProject

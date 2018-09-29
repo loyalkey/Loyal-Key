@@ -5,7 +5,8 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-
+using LoyalKeySystem;
+using LoyalKeyWCF.System;
 
 namespace LoyalKeyWCF
 {
@@ -13,11 +14,16 @@ namespace LoyalKeyWCF
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class CompanyService : ICompanyServices
     {
-        
         public string GetCompanyName(int companyID)
         {
-            
-            return "";
+            CompanyMethods cm = new CompanyMethods();
+            return cm.GetCompanyName(companyID);
+        }
+
+        public string GetCompanyPostcode(int companyID)
+        {
+            CompanyMethods cm = new CompanyMethods();
+            return cm.GetCompanyPostcode(companyID);
         }
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)

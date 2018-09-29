@@ -41,7 +41,7 @@ namespace LoyalKeyWCF
         public string StringValue
         {
             get { return stringValue; }
-            set { stringValue = value; }
+            set { stringValue = value; }           
         }
     }
 }

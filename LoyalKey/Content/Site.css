@@ -1,7 +1,115 @@
-﻿body {
+﻿navbar {
+    font-size: 30px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bolder;
+    line-height: 26.4px;
+    color: whitesmoke;
+}
+
+.navbar-brand {
+    font-weight: bolder;
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 32px;
+    line-height: 20px;
+}
+
+
+
+.navbar-inverse {
+    background-color: #A01FC4;
+    border-color: #A01FC4;
+    color: black;
+}
+
+    .navbar-inverse .navbar-brand {
+        color: #ffffff;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: whitesmoke;
+    }
+
+
+
+h1 {
+    /*font-family: "Dancing Script";*/
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    color: #A01FC4;
+}
+
+
+h2 {
+
+    font-size: 19px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 15.4px;
+}
+
+
+h3 {
+    /*font-family: "Dancing Script";*/
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 15.4px;
+}
+
+
+
+
+ul {
+    font-family: "Dancing Script";
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+p {
+    font-family: "Dancing Script";
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+blockquote {
+    /*font-family: "Dancing Script";*/
+    font-size: 21px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+pre {
+    /*font-family: "Dancing Script";*/
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18.5714px;
+}
+
+
+body {
+    font-family: "Dancing Script";
     padding-top: 50px;
     padding-bottom: 20px;
 }
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {

@@ -13,7 +13,7 @@ namespace LoyalKeySystem
             string companyName = "";
             try
             {
-                using (var loyalkeyDB = new LoyalKeyDB.LoyalKeyDBEntities())
+                using (LoyalKeyDB.LoyalKeyDBEntities loyalkeyDB = new LoyalKeyDB.LoyalKeyDBEntities())
                 {
                     LoyalKeyDB.Company company = loyalkeyDB.Companies.Find(companyID);
                     companyName = company.CompanyName;

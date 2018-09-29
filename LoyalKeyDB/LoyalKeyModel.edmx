@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LoyalKeyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LoyalKeyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="CompanyID" />
@@ -12,6 +12,7 @@
           <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PostCode" Type="nvarchar" MaxLength="12" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Reward">
           <Key>
@@ -93,8 +94,7 @@
             <End Role="RewardDetail" EntitySet="RewardDetail" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LoyalKeyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -106,6 +106,7 @@
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PostCode" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Rewards" Relationship="Self.FK_Reward_Company" FromRole="Company" ToRole="Reward" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Reward">
           <Key>
@@ -201,6 +202,7 @@
           <EntitySetMapping Name="Companies">
             <EntityTypeMapping TypeName="LoyalKeyDBModel.Company">
               <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="PostCode" ColumnName="PostCode" />

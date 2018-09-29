@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="ICompanyServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\CompanyMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -93,6 +94,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LoyalKeyDB\LoyalKeyDB.csproj">
+      <Project>{da025924-d470-42b7-bd54-3606f6455998}</Project>
+      <Name>LoyalKeyDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LoyalKeySystem\LoyalKeySystem.csproj">
       <Project>{b84fdd3a-09c2-44d1-8d50-1a20b773125a}</Project>
       <Name>LoyalKeySystem</Name>

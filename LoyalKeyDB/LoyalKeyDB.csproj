@@ -73,7 +73,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoyalKeyModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reward.cs">
       <DependentUpon>LoyalKeyModel.tt</DependentUpon>

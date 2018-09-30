@@ -16,7 +16,10 @@
     line-height: 20px;
 }
 
-
+.navbar-inverse .navbar-nav > li > a {
+    color: #9d9d9d;
+    font-size: 22px;
+}
 
 .navbar-inverse {
     background-color: #A01FC4;
@@ -46,7 +49,7 @@ h1 {
 
 h2 {
 
-    font-size: 19px;
+    font-size: 20px;
     font-style: normal;
     font-variant: normal;
     font-weight: 700;
@@ -56,19 +59,21 @@ h2 {
 
 h3 {
     /*font-family: "Dancing Script";*/
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-variant: normal;
     font-weight: 700;
     line-height: 15.4px;
 }
 
-
+li {
+    font-size: 43px;
+}
 
 
 ul {
-    font-family: "Dancing Script";
-    font-size: 14px;
+    /*font-family: "Dancing Script";*/
+    font-size: 16px;
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
@@ -76,8 +81,8 @@ ul {
 }
 
 p {
-    font-family: "Dancing Script";
-    font-size: 14px;
+    /*font-family: "Dancing Script";*/
+    font-size: 16px;
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
@@ -95,7 +100,7 @@ blockquote {
 
 pre {
     /*font-family: "Dancing Script";*/
-    font-size: 13px;
+    font-size: 16px;
     font-style: normal;
     font-variant: normal;
     font-weight: 400;

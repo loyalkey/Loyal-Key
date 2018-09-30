@@ -7,12 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKey", "LoyalKey\LoyalK
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKey.Tests", "LoyalKey.Tests\LoyalKey.Tests.csproj", "{1EC398BF-647E-44DD-928B-88CACC099739}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKeySystem", "LoyalKeySystem\LoyalKeySystem.csproj", "{B84FDD3A-09C2-44D1-8D50-1A20B773125A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DA025924-D470-42B7-BD54-3606F6455998} = {DA025924-D470-42B7-BD54-3606F6455998}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKeyDB", "LoyalKeyDB\LoyalKeyDB.csproj", "{DA025924-D470-42B7-BD54-3606F6455998}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyalKeyWCF", "LoyalKeyWCF\LoyalKeyWCF.csproj", "{27C2329A-D437-45A2-934D-140420CBC324}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,14 +25,14 @@ Global
 		{1EC398BF-647E-44DD-928B-88CACC099739}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EC398BF-647E-44DD-928B-88CACC099739}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EC398BF-647E-44DD-928B-88CACC099739}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B84FDD3A-09C2-44D1-8D50-1A20B773125A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B84FDD3A-09C2-44D1-8D50-1A20B773125A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B84FDD3A-09C2-44D1-8D50-1A20B773125A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B84FDD3A-09C2-44D1-8D50-1A20B773125A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA025924-D470-42B7-BD54-3606F6455998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA025924-D470-42B7-BD54-3606F6455998}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA025924-D470-42B7-BD54-3606F6455998}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA025924-D470-42B7-BD54-3606F6455998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C2329A-D437-45A2-934D-140420CBC324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C2329A-D437-45A2-934D-140420CBC324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C2329A-D437-45A2-934D-140420CBC324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C2329A-D437-45A2-934D-140420CBC324}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using LoyalKeySystem;
 using LoyalKeyWCF.System;
 using LoyalKeyWCF.System.Models;
 namespace LoyalKeyWCF

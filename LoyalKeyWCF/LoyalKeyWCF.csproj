@@ -99,10 +99,6 @@
       <Project>{da025924-d470-42b7-bd54-3606f6455998}</Project>
       <Name>LoyalKeyDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LoyalKeySystem\LoyalKeySystem.csproj">
-      <Project>{b84fdd3a-09c2-44d1-8d50-1a20b773125a}</Project>
-      <Name>LoyalKeySystem</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

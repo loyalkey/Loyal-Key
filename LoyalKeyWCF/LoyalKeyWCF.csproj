@@ -87,6 +87,7 @@
     <Compile Include="System\Models\RewardDescriptionDataContract.cs" />
     <Compile Include="System\Models\RewardDataContract.cs" />
     <Compile Include="System\Models\CompanyDataContract.cs" />
+    <Compile Include="System\Services\UserMethods.cs" />
     <Compile Include="System\Services\UtilitiesMethods.cs" />
     <Compile Include="System\Services\RewardMethods.cs" />
     <Compile Include="System\Services\CompanyMethods.cs" />

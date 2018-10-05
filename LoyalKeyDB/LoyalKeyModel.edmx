@@ -16,21 +16,22 @@
         </EntityType>
         <EntityType Name="Reward">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="RewardID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RewardDetailID" Type="int" Nullable="false" />
+          <Property Name="RewardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RewardDetail">
-          <Key>
-            <PropertyRef Name="RewardDetailID" />
-          </Key>
-          <Property Name="RewardDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RewardTypeID" Type="int" Nullable="false" />
-          <Property Name="Max" Type="money" />
+        </EntityType>
+        <EntityType Name="RewardDescription">
+          <Key>
+            <PropertyRef Name="RewardDescriptionID" />
+          </Key>
+          <Property Name="RewardDescriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RewardID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Value" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="RewardType">
           <Key>
@@ -52,46 +53,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reward_RewardDetail">
-          <End Role="RewardDetail" Type="Self.RewardDetail" Multiplicity="1" />
-          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RewardDetail">
-              <PropertyRef Name="RewardDetailID" />
-            </Principal>
-            <Dependent Role="Reward">
-              <PropertyRef Name="RewardDetailID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RewardDetail_RewardType">
+        <Association Name="FK_Reward_RewardType">
           <End Role="RewardType" Type="Self.RewardType" Multiplicity="1" />
-          <End Role="RewardDetail" Type="Self.RewardDetail" Multiplicity="*" />
+          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RewardType">
               <PropertyRef Name="RewardTypeID" />
             </Principal>
-            <Dependent Role="RewardDetail">
+            <Dependent Role="Reward">
               <PropertyRef Name="RewardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RewardDescription_Reward">
+          <End Role="Reward" Type="Self.Reward" Multiplicity="1" />
+          <End Role="RewardDescription" Type="Self.RewardDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reward">
+              <PropertyRef Name="RewardID" />
+            </Principal>
+            <Dependent Role="RewardDescription">
+              <PropertyRef Name="RewardID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="LoyalKeyDBModelStoreContainer">
           <EntitySet Name="Company" EntityType="Self.Company" Schema="Baulder" store:Type="Tables" />
           <EntitySet Name="Reward" EntityType="Self.Reward" Schema="Baulder" store:Type="Tables" />
-          <EntitySet Name="RewardDetail" EntityType="Self.RewardDetail" Schema="Baulder" store:Type="Tables" />
+          <EntitySet Name="RewardDescription" EntityType="Self.RewardDescription" Schema="Baulder" store:Type="Tables" />
           <EntitySet Name="RewardType" EntityType="Self.RewardType" Schema="Baulder" store:Type="Tables" />
           <AssociationSet Name="FK_Reward_Company" Association="Self.FK_Reward_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="Reward" EntitySet="Reward" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reward_RewardDetail" Association="Self.FK_Reward_RewardDetail">
-            <End Role="RewardDetail" EntitySet="RewardDetail" />
+          <AssociationSet Name="FK_Reward_RewardType" Association="Self.FK_Reward_RewardType">
+            <End Role="RewardType" EntitySet="RewardType" />
             <End Role="Reward" EntitySet="Reward" />
           </AssociationSet>
-          <AssociationSet Name="FK_RewardDetail_RewardType" Association="Self.FK_RewardDetail_RewardType">
-            <End Role="RewardType" EntitySet="RewardType" />
-            <End Role="RewardDetail" EntitySet="RewardDetail" />
+          <AssociationSet Name="FK_RewardDescription_Reward" Association="Self.FK_RewardDescription_Reward">
+            <End Role="Reward" EntitySet="Reward" />
+            <End Role="RewardDescription" EntitySet="RewardDescription" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -105,43 +106,62 @@
           <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PostCode" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Rewards" Relationship="Self.FK_Reward_Company" FromRole="Company" ToRole="Reward" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Rewards" Relationship="LoyalKeyDBModel.FK_Reward_Company" FromRole="Company" ToRole="Reward" />
         </EntityType>
+        <EntityContainer Name="LoyalKeyDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Rewards" EntityType="LoyalKeyDBModel.Reward" />
+          <EntitySet Name="RewardDescriptions" EntityType="LoyalKeyDBModel.RewardDescription" />
+          <EntitySet Name="RewardTypes" EntityType="LoyalKeyDBModel.RewardType" />
+          <AssociationSet Name="FK_Reward_Company" Association="LoyalKeyDBModel.FK_Reward_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Reward" EntitySet="Rewards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reward_RewardType" Association="LoyalKeyDBModel.FK_Reward_RewardType">
+            <End Role="RewardType" EntitySet="RewardTypes" />
+            <End Role="Reward" EntitySet="Rewards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RewardDescription_Reward" Association="LoyalKeyDBModel.FK_RewardDescription_Reward">
+            <End Role="Reward" EntitySet="Rewards" />
+            <End Role="RewardDescription" EntitySet="RewardDescriptions" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Reward">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="RewardID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RewardDetailID" Type="Int32" Nullable="false" />
+          <Property Name="RewardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Company" Relationship="Self.FK_Reward_Company" FromRole="Reward" ToRole="Company" />
-          <NavigationProperty Name="RewardDetail" Relationship="Self.FK_Reward_RewardDetail" FromRole="Reward" ToRole="RewardDetail" />
-        </EntityType>
-        <EntityType Name="RewardDetail">
-          <Key>
-            <PropertyRef Name="RewardDetailID" />
-          </Key>
-          <Property Name="RewardDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RewardTypeID" Type="Int32" Nullable="false" />
-          <Property Name="Max" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Rewards" Relationship="Self.FK_Reward_RewardDetail" FromRole="RewardDetail" ToRole="Reward" />
-          <NavigationProperty Name="RewardType" Relationship="Self.FK_RewardDetail_RewardType" FromRole="RewardDetail" ToRole="RewardType" />
+          <NavigationProperty Name="Company" Relationship="LoyalKeyDBModel.FK_Reward_Company" FromRole="Reward" ToRole="Company" />
+          <NavigationProperty Name="RewardType" Relationship="LoyalKeyDBModel.FK_Reward_RewardType" FromRole="Reward" ToRole="RewardType" />
+          <NavigationProperty Name="RewardDescriptions" Relationship="LoyalKeyDBModel.FK_RewardDescription_Reward" FromRole="Reward" ToRole="RewardDescription" />
+        </EntityType>
+        <EntityType Name="RewardDescription">
+          <Key>
+            <PropertyRef Name="RewardDescriptionID" />
+          </Key>
+          <Property Name="RewardDescriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RewardID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Reward" Relationship="LoyalKeyDBModel.FK_RewardDescription_Reward" FromRole="RewardDescription" ToRole="Reward" />
         </EntityType>
         <EntityType Name="RewardType">
           <Key>
             <PropertyRef Name="RewardTypeID" />
           </Key>
           <Property Name="RewardTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="RewardDetails" Relationship="Self.FK_RewardDetail_RewardType" FromRole="RewardType" ToRole="RewardDetail" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rewards" Relationship="LoyalKeyDBModel.FK_Reward_RewardType" FromRole="RewardType" ToRole="Reward" />
         </EntityType>
         <Association Name="FK_Reward_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="1" />
-          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
+          <End Type="LoyalKeyDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="LoyalKeyDBModel.Reward" Role="Reward" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Company">
               <PropertyRef Name="CompanyID" />
@@ -151,48 +171,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reward_RewardDetail">
-          <End Role="RewardDetail" Type="Self.RewardDetail" Multiplicity="1" />
-          <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RewardDetail">
-              <PropertyRef Name="RewardDetailID" />
-            </Principal>
-            <Dependent Role="Reward">
-              <PropertyRef Name="RewardDetailID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RewardDetail_RewardType">
-          <End Role="RewardType" Type="Self.RewardType" Multiplicity="1" />
-          <End Role="RewardDetail" Type="Self.RewardDetail" Multiplicity="*" />
+        <Association Name="FK_Reward_RewardType">
+          <End Type="LoyalKeyDBModel.RewardType" Role="RewardType" Multiplicity="1" />
+          <End Type="LoyalKeyDBModel.Reward" Role="Reward" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RewardType">
               <PropertyRef Name="RewardTypeID" />
             </Principal>
-            <Dependent Role="RewardDetail">
+            <Dependent Role="Reward">
               <PropertyRef Name="RewardTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LoyalKeyDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Companies" EntityType="Self.Company" />
-          <EntitySet Name="Rewards" EntityType="Self.Reward" />
-          <EntitySet Name="RewardDetails" EntityType="Self.RewardDetail" />
-          <EntitySet Name="RewardTypes" EntityType="Self.RewardType" />
-          <AssociationSet Name="FK_Reward_Company" Association="Self.FK_Reward_Company">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="Reward" EntitySet="Rewards" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reward_RewardDetail" Association="Self.FK_Reward_RewardDetail">
-            <End Role="RewardDetail" EntitySet="RewardDetails" />
-            <End Role="Reward" EntitySet="Rewards" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RewardDetail_RewardType" Association="Self.FK_RewardDetail_RewardType">
-            <End Role="RewardType" EntitySet="RewardTypes" />
-            <End Role="RewardDetail" EntitySet="RewardDetails" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="FK_RewardDescription_Reward">
+          <End Type="LoyalKeyDBModel.Reward" Role="Reward" Multiplicity="1" />
+          <End Type="LoyalKeyDBModel.RewardDescription" Role="RewardDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reward">
+              <PropertyRef Name="RewardID" />
+            </Principal>
+            <Dependent Role="RewardDescription">
+              <PropertyRef Name="RewardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -212,29 +214,30 @@
           <EntitySetMapping Name="Rewards">
             <EntityTypeMapping TypeName="LoyalKeyDBModel.Reward">
               <MappingFragment StoreEntitySet="Reward">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="RewardDetailID" ColumnName="RewardDetailID" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="RewardTypeID" ColumnName="RewardTypeID" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="RewardID" ColumnName="RewardID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RewardDetails">
-            <EntityTypeMapping TypeName="LoyalKeyDBModel.RewardDetail">
-              <MappingFragment StoreEntitySet="RewardDetail">
-                <ScalarProperty Name="RewardDetailID" ColumnName="RewardDetailID" />
-                <ScalarProperty Name="RewardTypeID" ColumnName="RewardTypeID" />
-                <ScalarProperty Name="Max" ColumnName="Max" />
+          <EntitySetMapping Name="RewardDescriptions">
+            <EntityTypeMapping TypeName="LoyalKeyDBModel.RewardDescription">
+              <MappingFragment StoreEntitySet="RewardDescription">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RewardID" ColumnName="RewardID" />
+                <ScalarProperty Name="RewardDescriptionID" ColumnName="RewardDescriptionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RewardTypes">
             <EntityTypeMapping TypeName="LoyalKeyDBModel.RewardType">
               <MappingFragment StoreEntitySet="RewardType">
-                <ScalarProperty Name="RewardTypeID" ColumnName="RewardTypeID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="RewardTypeID" ColumnName="RewardTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

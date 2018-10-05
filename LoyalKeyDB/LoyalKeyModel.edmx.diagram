@@ -5,13 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e90a13ef691d430e9554c438660568ec" Name="Diagram1">
-        <EntityTypeShape EntityType="LoyalKeyDBModel.Company" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LoyalKeyDBModel.Reward" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="LoyalKeyDBModel.RewardDetail" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LoyalKeyDBModel.RewardType" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="LoyalKeyDBModel.FK_Reward_Company" ManuallyRouted="false" />
-        <AssociationConnector Association="LoyalKeyDBModel.FK_Reward_RewardDetail" ManuallyRouted="false" />
-        <AssociationConnector Association="LoyalKeyDBModel.FK_RewardDetail_RewardType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LoyalKeyDBModel.Reward" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="LoyalKeyDBModel.RewardDescription" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="LoyalKeyDBModel.RewardType" Width="1.5" PointX="0.75" PointY="1.375" />
+        <AssociationConnector Association="LoyalKeyDBModel.FK_Reward_RewardType" />
+        <AssociationConnector Association="LoyalKeyDBModel.FK_RewardDescription_Reward" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

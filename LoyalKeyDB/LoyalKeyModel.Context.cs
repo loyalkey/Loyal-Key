@@ -27,7 +27,7 @@ namespace LoyalKeyDB
     
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Reward> Rewards { get; set; }
-        public virtual DbSet<RewardDetail> RewardDetails { get; set; }
+        public virtual DbSet<RewardDescription> RewardDescriptions { get; set; }
         public virtual DbSet<RewardType> RewardTypes { get; set; }
     }
 }

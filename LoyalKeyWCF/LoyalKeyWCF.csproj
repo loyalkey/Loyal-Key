@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CompanyService.svc" />
+    <Content Include="RewardService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -78,8 +79,16 @@
       <DependentUpon>CompanyService.svc</DependentUpon>
     </Compile>
     <Compile Include="ICompanyServices.cs" />
+    <Compile Include="IRewardServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RewardService.svc.cs">
+      <DependentUpon>RewardService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="System\Models\RewardDescriptionDataContract.cs" />
+    <Compile Include="System\Models\RewardDataContract.cs" />
     <Compile Include="System\Models\CompanyDataContract.cs" />
+    <Compile Include="System\Services\UtilitiesMethods.cs" />
+    <Compile Include="System\Services\RewardMethods.cs" />
     <Compile Include="System\Services\CompanyMethods.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

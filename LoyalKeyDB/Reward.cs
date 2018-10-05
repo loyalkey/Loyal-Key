@@ -14,13 +14,21 @@ namespace LoyalKeyDB
     
     public partial class Reward
     {
-        public int ID { get; set; }
-        public int RewardDetailID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Reward()
+        {
+            this.RewardDescriptions = new HashSet<RewardDescription>();
+        }
+    
+        public int RewardID { get; set; }
         public int CompanyID { get; set; }
         public System.DateTime StartDate { get; set; }
         public System.DateTime EndDate { get; set; }
+        public int RewardTypeID { get; set; }
     
         public virtual Company Company { get; set; }
-        public virtual RewardDetail RewardDetail { get; set; }
+        public virtual RewardType RewardType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RewardDescription> RewardDescriptions { get; set; }
     }
 }

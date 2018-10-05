@@ -12,19 +12,13 @@ namespace LoyalKeyDB
     using System;
     using System.Collections.Generic;
     
-    public partial class RewardType
+    public partial class RewardDescription
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RewardType()
-        {
-            this.Rewards = new HashSet<Reward>();
-        }
-    
-        public int RewardTypeID { get; set; }
-        public string Code { get; set; }
+        public int RewardDescriptionID { get; set; }
+        public int RewardID { get; set; }
         public string Description { get; set; }
+        public decimal Value { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reward> Rewards { get; set; }
+        public virtual Reward Reward { get; set; }
     }
 }

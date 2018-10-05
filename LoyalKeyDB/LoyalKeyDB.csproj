@@ -77,7 +77,7 @@
     <Compile Include="Reward.cs">
       <DependentUpon>LoyalKeyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="RewardDetail.cs">
+    <Compile Include="RewardDescription.cs">
       <DependentUpon>LoyalKeyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RewardType.cs">

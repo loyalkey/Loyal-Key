@@ -18,6 +18,8 @@ namespace LoyalKeyDB
         public int RewardID { get; set; }
         public string Description { get; set; }
         public decimal Value { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime EndDate { get; set; }
     
         public virtual Reward Reward { get; set; }
     }

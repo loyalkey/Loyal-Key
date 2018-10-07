@@ -50,6 +50,8 @@ namespace LoyalKeyWCF.System
                     rdc.RewardID = r.RewardID;
                     rdc.Description = r.Description;
                     rdc.Value = r.Value;
+                    rdc.StartDate = r.StartDate;
+                    rdc.EndDate = r.EndDate;
                     descriptions.Add(rdc);
                 }
             }

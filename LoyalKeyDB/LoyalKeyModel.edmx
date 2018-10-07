@@ -32,6 +32,8 @@
           <Property Name="RewardID" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Value" Type="money" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="RewardType">
           <Key>
@@ -149,6 +151,8 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="Reward" Relationship="LoyalKeyDBModel.FK_RewardDescription_Reward" FromRole="RewardDescription" ToRole="Reward" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="RewardType">
           <Key>
@@ -225,6 +229,8 @@
           <EntitySetMapping Name="RewardDescriptions">
             <EntityTypeMapping TypeName="LoyalKeyDBModel.RewardDescription">
               <MappingFragment StoreEntitySet="RewardDescription">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="RewardID" ColumnName="RewardID" />

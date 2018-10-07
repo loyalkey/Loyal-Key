@@ -10,6 +10,11 @@
         <EntityTypeShape EntityType="LoyalKeyDBModel.RewardType" Width="1.5" PointX="0.75" PointY="1.375" />
         <AssociationConnector Association="LoyalKeyDBModel.FK_Reward_RewardType" />
         <AssociationConnector Association="LoyalKeyDBModel.FK_RewardDescription_Reward" />
+        <EntityTypeShape EntityType="LoyalKeyDBModel.User" Width="1.5" PointX="10.5" PointY="3.125" />
+        <EntityTypeShape EntityType="LoyalKeyDBModel.UserLogin" Width="1.5" PointX="10.5" PointY="0.5" />
+        <AssociationConnector Association="LoyalKeyDBModel.FK_UserLogin_User" />
+        <EntityTypeShape EntityType="LoyalKeyDBModel.UserBalance" Width="1.5" PointX="12.625" PointY="0.5" />
+        <AssociationConnector Association="LoyalKeyDBModel.FK_UserBalance_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

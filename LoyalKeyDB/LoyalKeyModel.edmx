@@ -43,6 +43,42 @@
           <Property Name="Code" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="BassCode" Type="int" Nullable="false" />
+          <Property Name="Identifier" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LoyalKeyDB.Baulder.UserBalance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserBalance">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="Balance" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="Balance" Type="money" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LoyalKeyDB.Baulder.UserLogin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="IsLocked" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="250" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="char" MaxLength="128" Nullable="false" />
+          <Property Name="IsLocked" Type="bit" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Reward_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Reward" Type="Self.Reward" Multiplicity="*" />
@@ -79,11 +115,76 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBalance_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="UserBalance" Type="Self.UserBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="UserBalance">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBalance_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserBalance" Type="Self.UserBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserBalance">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="LoyalKeyDBModelStoreContainer">
           <EntitySet Name="Company" EntityType="Self.Company" Schema="Baulder" store:Type="Tables" />
           <EntitySet Name="Reward" EntityType="Self.Reward" Schema="Baulder" store:Type="Tables" />
           <EntitySet Name="RewardDescription" EntityType="Self.RewardDescription" Schema="Baulder" store:Type="Tables" />
           <EntitySet Name="RewardType" EntityType="Self.RewardType" Schema="Baulder" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="Baulder" store:Type="Tables" />
+          <EntitySet Name="UserBalance" EntityType="Self.UserBalance" store:Type="Tables" store:Schema="Baulder">
+            <DefiningQuery>SELECT 
+    [UserBalance].[UserID] AS [UserID], 
+    [UserBalance].[CompanyID] AS [CompanyID], 
+    [UserBalance].[Balance] AS [Balance]
+    FROM [Baulder].[UserBalance] AS [UserBalance]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" store:Type="Tables" store:Schema="Baulder">
+            <DefiningQuery>SELECT 
+    [UserLogin].[UserID] AS [UserID], 
+    [UserLogin].[EmailAddress] AS [EmailAddress], 
+    [UserLogin].[PhoneNumber] AS [PhoneNumber], 
+    [UserLogin].[Password] AS [Password], 
+    [UserLogin].[IsLocked] AS [IsLocked]
+    FROM [Baulder].[UserLogin] AS [UserLogin]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Reward_Company" Association="Self.FK_Reward_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="Reward" EntitySet="Reward" />
@@ -95,6 +196,22 @@
           <AssociationSet Name="FK_RewardDescription_Reward" Association="Self.FK_RewardDescription_Reward">
             <End Role="Reward" EntitySet="Reward" />
             <End Role="RewardDescription" EntitySet="RewardDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Company" Association="Self.FK_User_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBalance_Company" Association="Self.FK_UserBalance_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="UserBalance" EntitySet="UserBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBalance_User" Association="Self.FK_UserBalance_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserBalance" EntitySet="UserBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_User" Association="Self.FK_UserLogin_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLogin" EntitySet="UserLogin" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -110,6 +227,8 @@
           <Property Name="PostCode" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Rewards" Relationship="LoyalKeyDBModel.FK_Reward_Company" FromRole="Company" ToRole="Reward" />
+          <NavigationProperty Name="Users" Relationship="LoyalKeyDBModel.FK_User_Company" FromRole="Company" ToRole="User" />
+          <NavigationProperty Name="UserBalances" Relationship="LoyalKeyDBModel.FK_UserBalance_Company" FromRole="Company" ToRole="UserBalance" />
         </EntityType>
         <EntityContainer Name="LoyalKeyDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Companies" EntityType="Self.Company" />
@@ -127,6 +246,25 @@
           <AssociationSet Name="FK_RewardDescription_Reward" Association="LoyalKeyDBModel.FK_RewardDescription_Reward">
             <End Role="Reward" EntitySet="Rewards" />
             <End Role="RewardDescription" EntitySet="RewardDescriptions" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="LoyalKeyDBModel.User" />
+          <EntitySet Name="UserLogins" EntityType="LoyalKeyDBModel.UserLogin" />
+          <AssociationSet Name="FK_User_Company" Association="LoyalKeyDBModel.FK_User_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_User" Association="LoyalKeyDBModel.FK_UserLogin_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLogin" EntitySet="UserLogins" />
+          </AssociationSet>
+          <EntitySet Name="UserBalances" EntityType="LoyalKeyDBModel.UserBalance" />
+          <AssociationSet Name="FK_UserBalance_Company" Association="LoyalKeyDBModel.FK_UserBalance_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="UserBalance" EntitySet="UserBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBalance_User" Association="LoyalKeyDBModel.FK_UserBalance_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserBalance" EntitySet="UserBalances" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Reward">
@@ -199,6 +337,92 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="BassCode" Type="Int32" Nullable="false" />
+          <Property Name="Identifier" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="LoyalKeyDBModel.FK_User_Company" FromRole="User" ToRole="Company" />
+          <NavigationProperty Name="UserLogins" Relationship="LoyalKeyDBModel.FK_UserLogin_User" FromRole="User" ToRole="UserLogin" />
+          <NavigationProperty Name="UserBalances" Relationship="LoyalKeyDBModel.FK_UserBalance_User" FromRole="User" ToRole="UserBalance" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="IsLocked" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="true" Unicode="false" />
+          <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="LoyalKeyDBModel.FK_UserLogin_User" FromRole="UserLogin" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Company">
+          <End Type="LoyalKeyDBModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="LoyalKeyDBModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_User">
+          <End Type="LoyalKeyDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LoyalKeyDBModel.UserLogin" Role="UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserBalance">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="Balance" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="Balance" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Company" Relationship="LoyalKeyDBModel.FK_UserBalance_Company" FromRole="UserBalance" ToRole="Company" />
+          <NavigationProperty Name="User" Relationship="LoyalKeyDBModel.FK_UserBalance_User" FromRole="UserBalance" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UserBalance_Company">
+          <End Type="LoyalKeyDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="LoyalKeyDBModel.UserBalance" Role="UserBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="UserBalance">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBalance_User">
+          <End Type="LoyalKeyDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LoyalKeyDBModel.UserBalance" Role="UserBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserBalance">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -244,6 +468,37 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="RewardTypeID" ColumnName="RewardTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="LoyalKeyDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+                <ScalarProperty Name="BassCode" ColumnName="BassCode" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="LoyalKeyDBModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBalances">
+            <EntityTypeMapping TypeName="LoyalKeyDBModel.UserBalance">
+              <MappingFragment StoreEntitySet="UserBalance">
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

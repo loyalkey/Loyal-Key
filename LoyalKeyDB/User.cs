@@ -12,25 +12,24 @@ namespace LoyalKeyDB
     using System;
     using System.Collections.Generic;
     
-    public partial class Company
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Company()
+        public User()
         {
-            this.Rewards = new HashSet<Reward>();
-            this.Users = new HashSet<User>();
+            this.UserLogins = new HashSet<UserLogin>();
             this.UserBalances = new HashSet<UserBalance>();
         }
     
-        public int CompanyID { get; set; }
-        public string CompanyName { get; set; }
-        public string PostCode { get; set; }
-        public bool Deleted { get; set; }
+        public int UserID { get; set; }
+        public Nullable<int> CompanyID { get; set; }
+        public int BassCode { get; set; }
+        public string Identifier { get; set; }
+        public bool IsActive { get; set; }
     
+        public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reward> Rewards { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<UserLogin> UserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBalance> UserBalances { get; set; }
     }

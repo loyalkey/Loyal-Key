@@ -83,6 +83,15 @@
     <Compile Include="RewardType.cs">
       <DependentUpon>LoyalKeyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>LoyalKeyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserBalance.cs">
+      <DependentUpon>LoyalKeyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserLogin.cs">
+      <DependentUpon>LoyalKeyModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -70,6 +70,7 @@
   <ItemGroup>
     <Content Include="CompanyService.svc" />
     <Content Include="RewardService.svc" />
+    <Content Include="UserService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -80,10 +81,12 @@
     </Compile>
     <Compile Include="ICompanyServices.cs" />
     <Compile Include="IRewardServices.cs" />
+    <Compile Include="IUserServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RewardService.svc.cs">
       <DependentUpon>RewardService.svc</DependentUpon>
     </Compile>
+    <Compile Include="System\Models\UserDataContract.cs" />
     <Compile Include="System\Models\RewardDescriptionDataContract.cs" />
     <Compile Include="System\Models\RewardDataContract.cs" />
     <Compile Include="System\Models\CompanyDataContract.cs" />
@@ -91,6 +94,9 @@
     <Compile Include="System\Services\UtilitiesMethods.cs" />
     <Compile Include="System\Services\RewardMethods.cs" />
     <Compile Include="System\Services\CompanyMethods.cs" />
+    <Compile Include="UserService.svc.cs">
+      <DependentUpon>UserService.svc</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
